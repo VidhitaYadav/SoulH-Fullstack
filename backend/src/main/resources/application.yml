@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: soulh-backend
+  data:
+    mongodb:
+      # Local dev uses localhost; production uses MONGODB_URI from env
+      uri: ${MONGODB_URI:mongodb://localhost:27017/soulh_db}
+      auto-index-creation: ${SPRING_DATA_MONGODB_AUTO_INDEX_CREATION:false}
+  main:
+    lazy-initialization: false
+  h2:
+    console:
+      enabled: false
+
+server:
+  port: ${PORT:8080}
+
+app:
+  jwt:
+    secret: ${APP_JWT_SECRET:soulh-super-secret-jwt-key-must-be-at-least-32-chars-long-for-hmac}
+    expiration: 86400000 # 24 hours in milliseconds
+  cors:
+    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:3001,http://localhost:3002,http://localhost:5173}
+  google-client-id: ${VITE_GOOGLE_CLIENT_ID:${GOOGLE_CLIENT_ID:YOUR_GOOGLE_CLIENT_ID_HERE.apps.googleusercontent.com}}
+
+  razorpay:
+    # Use TEST mode keys — sign up free at razorpay.com → Settings → API Keys
+    key-id: ${RAZORPAY_KEY_ID:rzp_test_REPLACE_WITH_YOUR_KEY}
+    key-secret: ${RAZORPAY_KEY_SECRET:REPLACE_WITH_YOUR_SECRET}
+    consultation-fee: 499.0   # INR — change as needed
